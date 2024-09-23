@@ -57,45 +57,43 @@ export const PostList = () => {
   });
 
   return (
-    <List
-      headerProps={{
-        extra: (
-          <Space>
-            <ImportButton {...importProps} />
-            <ExportButton onClick={triggerExport} loading={exportLoading} />
-          </Space>
-        ),
-      }}
-    >
-      <Table {...tableProps} rowKey="id">
-        <Table.Column dataIndex="id" title="ID" />
-        <Table.Column dataIndex="title" title="Title" />
-        <Table.Column
-          dataIndex={["category", "id"]}
-          title="Category"
-          render={(value) => {
-            if (isLoading) {
-              return <TextField value="Loading..." />;
-            }
+    <>
+      <Space>
+        <ImportButton {...importProps} />
+        <ExportButton onClick={triggerExport} loading={exportLoading} />
+      </Space>
+      <List
+      >
+        <Table {...tableProps} rowKey="id">
+          <Table.Column dataIndex="id" title="ID" />
+          <Table.Column dataIndex="title" title="Title" />
+          <Table.Column
+            dataIndex={["category", "id"]}
+            title="Category"
+            render={(value) => {
+              if (isLoading) {
+                return <TextField value="Loading..." />;
+              }
 
-            return (
-              <TextField
-                value={data?.data.find((item) => item.id === value)?.title}
-              />
-            );
-          }}
-        />
-        <Table.Column<IPost>
-          title="Actions"
-          dataIndex="actions"
-          render={(_, record) => (
-            <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
-              <ShowButton hideText size="small" recordItemId={record.id} />
-            </Space>
-          )}
-        />
-      </Table>
-    </List>
+              return (
+                <TextField
+                  value={data?.data.find((item) => item.id === value)?.title}
+                />
+              );
+            }}
+          />
+          <Table.Column<IPost>
+            title="Actions"
+            dataIndex="actions"
+            render={(_, record) => (
+              <Space>
+                <EditButton hideText size="small" recordItemId={record.id} />
+                <ShowButton hideText size="small" recordItemId={record.id} />
+              </Space>
+            )}
+          />
+        </Table>
+      </List>
+    </>
   );
 };
